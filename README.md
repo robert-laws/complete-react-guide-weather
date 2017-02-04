@@ -1,4 +1,4 @@
 React - Weather application
 ===========================
 
-:ant:
+:octocat: - Github
