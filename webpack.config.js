@@ -1,10 +1,17 @@
-var webpack = require("webpack");
+var webpack = require('webpack');
 
 module.exports = {
-	entry: "./app/app.js",
+	entry: [
+		'script!jquery/dist/jquery.min.js',
+		'script!foundation-sites/dist/foundation.min.js',
+		'./app/app.js'
+	],
+	externals: {
+		jquery: 'jQuery'
+	},
 	output: {
-		path: "public",
-		filename: "bundle.js"
+		path: 'public',
+		filename: 'bundle.js'
 	},
 	devServer: {
 		inline: true,
@@ -30,24 +37,24 @@ module.exports = {
 			{
 				test: /\.js$/,
 				exclude: /(node_modules)/,
-				loader: ["babel-loader"],
+				loader: ['babel-loader'],
 				query: {
 					presets: ['es2015', 'react', 'stage-0']
 				}
-			},
-			{
-				test: /\.json$/,
-				exclude: /(node_modules)/,
-				loader: "json-loader"
-			},
-			{
-				test: /\.css$/,
-				loader: 'style-loader!css-loader!autoprefixer-loader'
-			},
-			{
-				test: /\.scss$/,
-				loader: 'style-loader!css-loader!autoprefixer-loader!sass-loader'
 			}
+			// {
+			// 	test: /\.json$/,
+			// 	exclude: /(node_modules)/,
+			// 	loader: 'json-loader'
+			// },
+			// {
+			// 	test: /\.css$/,
+			// 	loader: 'style-loader!css-loader!autoprefixer-loader'
+			// },
+			// {
+			// 	test: /\.scss$/,
+			// 	loader: 'style-loader!css-loader!autoprefixer-loader!sass-loader'
+			// }
 		]
 	},
 	plugins: [
@@ -58,6 +65,10 @@ module.exports = {
         //     output: {
         //         comments: false,
         //     }
-        // })
+        // }),
+				new webpack.ProvidePlugin({
+					'$': 'jquery',
+					'jQuery': 'jquery'
+				})
     ]
 }
